@@ -46,4 +46,4 @@ A arquitetura do código foi desenhada de forma modular:
 1. Certifique-se de ter o **Java JDK** instalado (versão recomendada: 17 ou superior).
 2. Clone este repositório:
    ```bash
-   git clone [https://github.com/seu-usuario/byte-and-brew.git](https://github.com/seu-usuario/byte-and-brew.git)
+   git clone [https://github.com/seu-usuario/byte-and-brew.git](https://github.com/igordev-exe/byte-&-brew.git)
