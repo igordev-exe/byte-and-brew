@@ -35,6 +35,9 @@ public class Produto {
     }
     
     public void reduzirEstoque(int quantidade) {
-        
+        if (quantidade > quantidadeEstoque) {
+            throw new EstoqueInsuficienteException(codigo, quantidadeEstoque, quantidade);
+        }
+        setQuantidadeEstoque(getQuantidadeEstoque() - quantidade);
     }
 }
