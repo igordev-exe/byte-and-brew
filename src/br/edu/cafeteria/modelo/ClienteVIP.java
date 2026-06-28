@@ -22,7 +22,7 @@ public class ClienteVIP extends Cliente {
         if (this.saldoXP >= xpNecessario) {
             abaterXP(xpNecessario);
         } else {
-            throw new PontosInsuficientesException("Saldo de XP insuficiente! Necessário: " + xpNecessario + " | Atual: " + this.saldoXP);
+            throw new PontosInsuficientesException(getCpf(), getSaldoXP(), xpNecessario);
         }
     }
 }/*a*/

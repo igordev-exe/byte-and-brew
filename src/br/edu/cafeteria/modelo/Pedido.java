@@ -30,7 +30,8 @@ public class Pedido {
     // [OO: Polimorfismo por Sobrecarga] - Assinatura 2
     public void adicionarItem(Produto p, int quantidade) throws EstoqueInsuficienteException {
         if (quantidade > p.getQuantidadeEstoque()) {
-            throw new EstoqueInsuficienteException("Estoque insuficiente para este item! Disponível: " + p.getQuantidadeEstoque());
+            throw new EstoqueInsuficienteException(
+                    p.getCodigo(), quantidade, p.getQuantidadeEstoque());
         }
         itens.add(new ItemPedido(p, quantidade));
     }
