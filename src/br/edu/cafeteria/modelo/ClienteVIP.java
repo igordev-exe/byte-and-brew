@@ -3,48 +3,26 @@ package br.edu.cafeteria.modelo;
 import br.edu.cafeteria.excecao.PontosInsuficientesException;
 
 public class ClienteVIP extends Cliente {
+    // [OO: Modificador de Escopo Estático] - Constante de classe para conversão
+    public static final int TAXA_CONVERSAO = 10;
 
-    private static final int TAXA_CONV = 10;
-
-    public ClienteVIP(String nome, String cpf) {
-        super(nome, cpf);
-    }
-
-  
-    @Override
-    public int getTaxaXP() {
-        return 2;
+    public ClienteVIP(String cpf, String nome) {
+        super(cpf, nome);
     }
 
     @Override
-    public int calcularXP(double valor) {
-        return (int) (valor * getTaxaXP());
+    public void calcularXPGanho(double valor) {
+        // [OO: Polimorfismo por Coerção] - (int) força a conversão do cálculo double
+        int xpGanho = (int) (valor * 2);
+        this.saldoXP += xpGanho;
     }
 
-    public void pagarComXP(Pedido pedido) throws PontosInsuficientesException {
-        double total         = pedido.calcularTotal();
-        
-        int    xpNecessario  = (int) Math.ceil(total * TAXA_CONV);
-
-        if (this.saldoXP < xpNecessario) {
-            throw new PontosInsuficientesException(this.saldoXP, xpNecessario);
+    public void pagarComXP(double valorTotal) throws PontosInsuficientesException {
+        double xpNecessario = valorTotal * TAXA_CONVERSAO;
+        if (this.saldoXP >= xpNecessario) {
+            abaterXP(xpNecessario);
+        } else {
+            throw new PontosInsuficientesException("Saldo de XP insuficiente! Necessário: " + xpNecessario + " | Atual: " + this.saldoXP);
         }
-
-      
-        this.saldoXP -= xpNecessario;
-
-        pedido.finalizarSemXP();
-
-        System.out.printf("  [VIP] Pagamento com XP: -%d XP debitados (Total: R$ %.2f)%n",
-                xpNecessario, total);
     }
-
-    public static int getTaxaConv() {
-        return TAXA_CONV;
-    }
-
-    @Override
-    public String toString() {
-        return "[VIP ★] " + super.toString();
-    }
-}
+}/*a*/

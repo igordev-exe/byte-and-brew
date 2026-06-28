@@ -1,4 +1,6 @@
 package br.edu.cafeteria.modelo;
 
-public class Temperatura {
-}
+public enum Temperatura {
+    QUENTE,
+    GELADO
+}/*a*/

@@ -1,30 +1,19 @@
 package br.edu.cafeteria.modelo;
 
-public class Bebida extends Produto{
-    private int qtdCafeina;
-    private String temperatura;
-    private String tamanho;
-    public int getQtdCafeina() {
-        return qtdCafeina;
-    }
+public class Bebida extends Produto {
+    private Tamanho tamanho; // Agora usando o Enum
+    private Temperatura temperatura; // Agora usando o Enum
+    private int mgCafeina;
 
-    public void setQtdCafeina(int qtdCafeina) {
-        this.qtdCafeina = qtdCafeina;
-    }
-
-    public String getTemperatura() {
-        return temperatura;
-    }
-
-    public void setTemperatura(String temperatura) {
-        this.temperatura = temperatura;
-    }
-
-    public String getTamanho() {
-        return tamanho;
-    }
-
-    public void setTamanho(String tamanho) {
+    public Bebida(String codigo, String nome, double precoBase, int estoque, Tamanho tamanho, Temperatura temperatura, int mgCafeina) {
+        super(codigo, nome, precoBase, estoque);
         this.tamanho = tamanho;
+        this.temperatura = temperatura;
+        this.mgCafeina = mgCafeina;
     }
-}
+
+    @Override
+    public String toString() {
+        return super.toString() + String.format(" - Tam: %s, Temp: %s, Cafeína: %dmg", tamanho, temperatura, mgCafeina);
+    }
+}/*a*/

@@ -1,4 +1,7 @@
 package br.edu.cafeteria.modelo;
 
-public class Tamanho {
-}
+public enum Tamanho {
+    PEQUENO,
+    MEDIO,
+    GRANDE
+}/*a*/

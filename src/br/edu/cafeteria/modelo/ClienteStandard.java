@@ -2,24 +2,14 @@ package br.edu.cafeteria.modelo;
 
 public class ClienteStandard extends Cliente {
 
-    public ClienteStandard(String nome, String cpf) {
-        super(nome, cpf);
+    public ClienteStandard(String cpf, String nome) {
+        super(cpf, nome);
     }
 
     @Override
-    public int getTaxaXP() {
-        return 1;
+    public void calcularXPGanho(double valor) {
+        // [OO: Polimorfismo por Coerção] - Convertendo double (valor) para int implicitamente através da regra de negócio (1 por real inteiro)
+        int xpGanho = (int) valor;
+        this.saldoXP += xpGanho;
     }
-
-    @Override
-    public int calcularXP(double valor) {
-      
-        return (int) (valor * getTaxaXP());
-    }
-
-
-    @Override
-    public String toString() {
-        return "[Standard] " + super.toString();
-    }
-}
+}/*a*/
