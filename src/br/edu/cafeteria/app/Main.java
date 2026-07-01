@@ -281,8 +281,8 @@ public class Main {
         System.out.println("\n-> TESTE 1: Polimorfismo por Sobrecarga e Herança");
         Pedido pedidoAlan = new Pedido(alan, atendenteLogado);
         try {
-            pedidoAlan.adicionarItem(lembas); // Sobrecarga 1 (assume quantidade 1)
-            pedidoAlan.adicionarItem(pocaoMana, 2); // Sobrecarga 2 (recebe quantidade 2)
+            pedidoAlan.adicionarItem(lembas);
+            pedidoAlan.adicionarItem(pocaoMana, 2); 
             System.out.println("[OK] Itens adicionados com sucesso ao pedido do Alan.");
         } catch (EstoqueInsuficienteException e) {
             System.out.println("[ERRO] Falha inesperada: " + e.getMessage());
@@ -295,5 +295,33 @@ public class Main {
         } catch (EstoqueInsuficienteException e) {
             System.out.println("[OK] Exceção capturada com sucesso: " + e.getMessage());
         }
+
+        System.out.println("\n-> TESTE 3: Interface Promocional e Cálculo de XP (Sobrescrita)");
+        Promocional diaGeek = new DiaEventoGeek();
+        double totalBebidas = pedidoAlan.calcularTotalBebidas();
+        double desconto     = diaGeek.aplicarDesconto(totalBebidas);
+        double valorAlan    = pedidoAlan.calcularTotal() - desconto;
+        alan.calcularXPGanho(valorAlan);
+        pedidoAlan.efetivarSaidaEstoque();
+        System.out.printf("[OK] Total com desconto: R$ %.2f%n", valorAlan);
+        System.out.println("[OK] Saldo XP Alan: " + alan.getSaldoXP() + " XP");
+
+
+        System.out.println("\n-> TESTE 4: Exceção Checked - Pontos Insuficientes (Cliente VIP)");
+        Pedido pedidoAda = new Pedido(ada, atendenteLogado);
+        try {
+            pedidoAda.adicionarItem(cafe, 5);
+            double totalAda = pedidoAda.calcularTotal(); // R$ 40,00
+            System.out.println("Tentando pagar com XP (Saldo: " + ada.getSaldoXP() + " XP)...");
+            ada.pagarComXP(totalAda);
+        } catch (PontosInsuficientesException e) {
+            System.out.println("[OK] Exceção capturada: " + e.getMessage());
+        } catch (EstoqueInsuficienteException e) {
+            System.out.println("[ERRO] Falha de estoque inesperada.");
+        }
+
+        System.out.println("\n=== FIM DO TESTE DE MESA ===");
+        System.out.println("Pressione ENTER para voltar ao menu principal...");
+        scanner.nextLine();
     }
 }
