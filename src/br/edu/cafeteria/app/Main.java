@@ -19,6 +19,7 @@ public class Main {
             System.out.println("===== SISTEMA BYTE & BREW =====");
             System.out.println("Operador de Caixa: " + atendenteLogado.getNome());
             System.out.println("-------------------------------");
+            System.out.println("[0] Teste de Mesa");
             System.out.println("[1] Modo Cliente (Caixa/Venda)");
             System.out.println("[2] Modo Funcionário (Gestão)");
             System.out.println("[3] Sair do Sistema");
@@ -26,6 +27,7 @@ public class Main {
             opcao = lerInteiro();
 
             switch (opcao) {
+                case 0: executarTesteDeMesa(); break;
                 case 1: fluxoCliente(); break;
                 case 2: fluxoFuncionario(); break;
                 case 3: System.out.println("Encerrando a operação do caixa. Até logo!"); break;
@@ -263,5 +265,27 @@ public class Main {
         repo.adicionarProduto(new Bebida("B02", "Café do Programador", 8.0, 50, Tamanho.GRANDE, Temperatura.QUENTE, 250));
         repo.adicionarCliente(new ClienteVIP("111", "Ada Lovelace"));
         repo.adicionarCliente(new ClienteStandard("222", "Alan Turing"));
+    }
+
+    //Codigo Para o Teste de Mesa
+    private static void executarTesteDeMesa(){
+        System.out.println("=== INICIANDO TESTE DE MESA AUTOMATIZADO ===\n");
+        System.out.println("[SETUP] Carregando aventureiros e cardápio...");
+        ClienteStandard alan = (ClienteStandard) repo.buscarCliente("222"); //Cliente Alan Turing
+        ClienteVIP ada = (ClienteVIP) repo.buscarCliente("111"); //Cliente Ada Lovelace
+
+        Produto lembas = repo.buscarProduto("C01");
+        Produto pocaoMana = repo.buscarProduto("B01");
+        Produto cafe = repo.buscarProduto("B02");
+
+        System.out.println("\n-> TESTE 1: Polimorfismo por Sobrecarga e Herança");
+        Pedido pedidoAlan = new Pedido(alan, atendenteLogado);
+        try {
+            pedidoAlan.adicionarItem(lembas); // Sobrecarga 1 (assume quantidade 1)
+            pedidoAlan.adicionarItem(pocaoMana, 2); // Sobrecarga 2 (recebe quantidade 2)
+            System.out.println("[OK] Itens adicionados com sucesso ao pedido do Alan.");
+        } catch (EstoqueInsuficienteException e) {
+            System.out.println("[ERRO] Falha inesperada: " + e.getMessage());
+        }
     }
 }
