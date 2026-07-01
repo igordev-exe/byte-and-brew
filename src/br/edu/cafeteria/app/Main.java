@@ -154,8 +154,7 @@ public class Main {
         boolean pagoComXP = false;
 
         Cliente c = pedido.getCliente();
-        if (c instanceof ClienteVIP) {
-            ClienteVIP vip = (ClienteVIP) c;
+        if (c instanceof ClienteVIP vip) {
             double xpNecessario = total * ClienteVIP.TAXA_CONVERSAO;
             System.out.printf("\n[DADOS VIP] Saldo: %.2f XP | Custo da compra: %.2f XP\n", vip.getSaldoXP(), xpNecessario);
             System.out.print("Deseja pagar inteiramente utilizando o seu XP? [S/N]: ");
