@@ -287,5 +287,13 @@ public class Main {
         } catch (EstoqueInsuficienteException e) {
             System.out.println("[ERRO] Falha inesperada: " + e.getMessage());
         }
+
+        System.out.println("\n-> TESTE 2: Exceção Checked - Estoque Insuficiente");
+        try {
+            System.out.println("Tentando comprar 15 Lembas Bread (Estoque disponível: " + lembas.getQuantidadeEstoque() + ")...");
+            pedidoAlan.adicionarItem(lembas, 15);
+        } catch (EstoqueInsuficienteException e) {
+            System.out.println("[OK] Exceção capturada com sucesso: " + e.getMessage());
+        }
     }
 }
