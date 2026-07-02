@@ -103,7 +103,7 @@ src/
     <img src="https://avatars.githubusercontent.com/u/224191295?v=4" width="150px" style="border-radius: 100px;">
 - [Felippe Ong Su - 242028664](https://github.com/felpp-su)
 
-    <img src="[https://github.com/felpp-su](https://avatars.githubusercontent.com/u/197075315?v=4)" width="150px" style="border-radius: 100px;">
+    <img src="https://avatars.githubusercontent.com/u/197075315?v=4" width="150px" style="border-radius: 100px;">
 ## 📚 Disciplina
  
 **Orientação a Objetos** — Prof. André Luiz Peron Martins Lanna  
