@@ -92,8 +92,6 @@ src/
 - **XP insuficiente** → pagamento com pontos bloqueado com `PontosInsuficientesException`
 ---
  
-## 🔗 Link da página
-[Página Responsiva](https://a-alvezx.github.io/Pagina-Responsiva/)
 ## Autores
 - [André Alves - 252003794](https://github.com/a-alvezx)
 
