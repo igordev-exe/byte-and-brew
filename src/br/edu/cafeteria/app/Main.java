@@ -320,6 +320,22 @@ public class Main {
             System.out.println("[ERRO] Falha de estoque inesperada.");
         }
 
+        System.out.println("\n-> TESTE 5: Pagamento bem-sucedido com XP (Cliente VIP)");
+        ada.calcularXPGanho(200.0); // Ada faz compras e acumula XP: 200 * 2 = 400 XP
+        System.out.println("Ada acumulou XP em compras anteriores. Saldo: " + ada.getSaldoXP() + " XP");
+
+        Pedido pedidoVip = new Pedido(ada, atendenteLogado);
+        try {
+            pedidoVip.adicionarItem(cafe, 2); // R$ 16,00 -> custa 160 XP
+            double totalVip = pedidoVip.calcularTotal();
+            ada.pagarComXP(totalVip);
+            pedidoVip.efetivarSaidaEstoque();
+            System.out.printf("[OK] Compra de R$ %.2f paga inteiramente com XP! Saldo restante: %.0f XP%n",
+                    totalVip, ada.getSaldoXP());
+        } catch (PontosInsuficientesException | EstoqueInsuficienteException e) {
+            System.out.println("[ERRO] " + e.getMessage());
+        }
+
         System.out.println("\n=== FIM DO TESTE DE MESA ===");
         System.out.println("Pressione ENTER para voltar ao menu principal...");
         scanner.nextLine();
