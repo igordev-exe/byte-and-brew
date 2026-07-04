@@ -43,8 +43,4 @@ public class GerenciadorCafeteria {
     public void deletarProduto(String codigo) {
         catalogo.removeIf(p -> p.getCodigo().equalsIgnoreCase(codigo));
     }
-
-    public void deletarCliente(String cpf) {
-        clientes.removeIf(c -> c.getCpf().equals(cpf));
-    }
 }/*a*/
