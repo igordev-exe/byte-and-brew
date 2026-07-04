@@ -192,6 +192,7 @@ public class Main {
         System.out.println("3 - Listar Produtos / Estoque");
         System.out.println("4 - Cadastrar novo Cliente");
         System.out.println("5 - Listar Clientes Fidelidade");
+        System.out.println("6 - Deletar Produto");
         System.out.print("Opção: ");
         int op = lerInteiro();
 
@@ -238,6 +239,9 @@ public class Main {
                 break;
             case 5: repo.listarClientes(); break;
             default: System.out.println("=> Opção inválida.");
+            case 6: System.out.println("Código único: "); String codDel = scanner.nextLine().trim();
+                repo.deletarProduto(codDel); 
+                System.out.println("=> Produto deletado (se existia)."); break;
         }
         System.out.println("\nPressione ENTER para voltar ao Menu Principal...");
         scanner.nextLine();
