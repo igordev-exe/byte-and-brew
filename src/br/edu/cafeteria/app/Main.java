@@ -239,9 +239,18 @@ public class Main {
                 break;
             case 5: repo.listarClientes(); break;
             default: System.out.println("=> Opção inválida.");
-            case 6: System.out.println("Código único: "); String codDel = scanner.nextLine().trim();
-                repo.deletarProduto(codDel); 
-                System.out.println("=> Produto deletado (se existia)."); break;
+            case 6: System.out.print("Código do produto: ");
+                String codDel = scanner.nextLine().trim();
+                Produto p = repo.buscarProduto(codDel);
+
+                if (p == null) {
+                    System.out.println("=> ERRO: Produto não encontrado no catálogo.");
+                    break;
+                }
+                else {
+                    repo.deletarProduto(codDel);
+                    System.out.println("=> Produto removido do sistema com sucesso!");
+                }
         }
         System.out.println("\nPressione ENTER para voltar ao Menu Principal...");
         scanner.nextLine();
