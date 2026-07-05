@@ -1,5 +1,4 @@
 package br.edu.cafeteria.app;
-/*a*/
 import br.edu.cafeteria.excecao.*;
 import br.edu.cafeteria.modelo.*;
 import br.edu.cafeteria.servico.*;
@@ -192,6 +191,7 @@ public class Main {
         System.out.println("3 - Listar Produtos / Estoque");
         System.out.println("4 - Cadastrar novo Cliente");
         System.out.println("5 - Listar Clientes Fidelidade");
+        System.out.println("6 - Deletar Produto");
         System.out.print("Opção: ");
         int op = lerInteiro();
 
@@ -237,7 +237,20 @@ public class Main {
                 System.out.println("=> Cliente cadastrado no programa de fidelidade!");
                 break;
             case 5: repo.listarClientes(); break;
-            default: System.out.println("=> Opção inválida.");
+            case 6:
+                System.out.print("Código do produto: ");
+                String codDel = scanner.nextLine().trim();
+                Produto p = repo.buscarProduto(codDel);
+
+                if (p == null) {
+                    System.out.println("=> ERRO: Produto não encontrado no catálogo.");
+                } else {
+                    repo.deletarProduto(codDel);
+                    System.out.println("=> Produto removido do sistema com sucesso!");
+                }
+                break;
+            default:
+                System.out.println("=> Opção inválida.");
         }
         System.out.println("\nPressione ENTER para voltar ao Menu Principal...");
         scanner.nextLine();
