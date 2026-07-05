@@ -4,10 +4,14 @@ import br.edu.cafeteria.excecao.PontosInsuficientesException;
 
 public class ClienteVIP extends Cliente {
     // [OO: Modificador de Escopo Estático] - Constante de classe para conversão
-    public static final int TAXA_CONVERSAO = 10;
+    private static final int TAXA_CONVERSAO = 10;
 
     public ClienteVIP(String cpf, String nome) {
         super(cpf, nome);
+    }
+
+    public static int getTaxaConversao() {
+        return TAXA_CONVERSAO;
     }
 
     @Override
@@ -25,4 +29,4 @@ public class ClienteVIP extends Cliente {
             throw new PontosInsuficientesException(getCpf(), getSaldoXP(), xpNecessario);
         }
     }
-}/*a*/
+}
