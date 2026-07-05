@@ -16,4 +16,4 @@ public class Comida extends Produto {
         String info = veganoOuSemGluten ? "(Especial/Vegano)" : "";
         return super.toString() + String.format(" - Preparo: %d min %s", tempoPreparo, info);
     }
-}/*a*/
+}
