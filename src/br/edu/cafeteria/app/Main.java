@@ -57,11 +57,15 @@ public class Main {
                 String querCadastrar = scanner.nextLine().trim().toUpperCase();
 
                 if (querCadastrar.equalsIgnoreCase("S")) {
-                    System.out.print("Informe o nome do cliente: ");
-                    String nome = scanner.nextLine().trim();
-                    cliente = new ClienteStandard(cpf, nome);
-                    repo.adicionarCliente(cliente);
-                    System.out.println("=> " + nome + " cadastrado(a) com sucesso como Aventureiro(a) Iniciante!");
+                    if (!cpfValido(cpf)) {
+                        System.out.println("=> ERRO: CPF inválido para cadastro (11 dígitos numéricos). Prosseguindo como Cliente Casual.");
+                    } else {
+                        System.out.print("Informe o nome do cliente: ");
+                        String nome = scanner.nextLine().trim();
+                        cliente = new ClienteStandard(cpf, nome);
+                        repo.adicionarCliente(cliente);
+                        System.out.println("=> " + nome + " cadastrado(a) com sucesso como Aventureiro(a) Iniciante!");
+                    }
                 } else {
                     System.out.println("=> Prosseguindo como Cliente Casual.");
                 }
@@ -186,6 +190,10 @@ public class Main {
         switch (op) {
             case 1:
                 System.out.print("Código único: "); String codC = scanner.nextLine().trim();
+                if (repo.buscarProduto(codC) != null) {
+                    System.out.println("=> ERRO: Já existe um produto cadastrado com esse código.");
+                    break;
+                }
                 System.out.print("Nome da Comida: "); String nomeC = scanner.nextLine().trim();
                 System.out.print("Preço Base (ex: 15.50): "); double preC = lerDouble();
                 System.out.print("Estoque Inicial: "); int estC = lerInteiro();
@@ -196,6 +204,10 @@ public class Main {
                 break;
             case 2:
                 System.out.print("Código único: "); String codB = scanner.nextLine().trim();
+                if (repo.buscarProduto(codB) != null) {
+                    System.out.println("=> ERRO: Já existe um produto cadastrado com esse código.");
+                    break;
+                }
                 System.out.print("Nome da Bebida: "); String nomeB = scanner.nextLine().trim();
                 System.out.print("Preço Base (ex: 12.00): "); double preB = lerDouble();
                 System.out.print("Estoque Inicial: "); int estB = lerInteiro();
@@ -218,6 +230,14 @@ public class Main {
             case 3: repo.listarProdutos(); break;
             case 4:
                 System.out.print("CPF: "); String cpf = scanner.nextLine().trim();
+                if (!cpfValido(cpf)) {
+                    System.out.println("=> ERRO: CPF inválido. Informe exatamente 11 dígitos numéricos.");
+                    break;
+                }
+                if (repo.buscarCliente(cpf) != null) {
+                    System.out.println("=> ERRO: Já existe um cliente cadastrado com esse CPF.");
+                    break;
+                }
                 System.out.print("Nome do Cliente: "); String nomeCli = scanner.nextLine().trim();
                 System.out.print("O cliente será VIP? [S/N]: "); String vip = scanner.nextLine().trim();
                 if (vip.equalsIgnoreCase("S")) repo.adicionarCliente(new ClienteVIP(cpf, nomeCli));
@@ -253,8 +273,12 @@ public class Main {
                 if (!precoStr.isEmpty()) {
                     try {
                         double novoPreco = Double.parseDouble(precoStr.replace(",", "."));
-                        repo.atualizarPrecoProduto(codUpd, novoPreco);
-                        System.out.println("=> Preço atualizado.");
+                        if (novoPreco <= 0) {
+                            System.out.println("=> ERRO: O preço deve ser maior que zero. Preço não foi alterado.");
+                        } else {
+                            repo.atualizarPrecoProduto(codUpd, novoPreco);
+                            System.out.println("=> Preço atualizado.");
+                        }
                     } catch (NumberFormatException e) {
                         System.out.println("=> Valor inválido, preço não foi alterado.");
                     }
@@ -321,6 +345,12 @@ public class Main {
             try { return Double.parseDouble(scanner.nextLine().replace(",", ".").trim()); }
             catch (NumberFormatException e) { System.out.print("=> [ERRO] Digite um valor numérico (ex: 15.50): "); }
         }
+    }
+
+    // Validação estrutural: exige exatamente 11 dígitos numéricos.
+    // Não implementa o algoritmo oficial de dígitos verificadores da Receita Federal.
+    private static boolean cpfValido(String cpf) {
+        return cpf != null && cpf.matches("\\d{11}");
     }
 
     private static void limparTela() { for (int i = 0; i < 50; ++i) System.out.println(); }
