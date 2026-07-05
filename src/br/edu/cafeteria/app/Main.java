@@ -192,6 +192,9 @@ public class Main {
         System.out.println("4 - Cadastrar novo Cliente");
         System.out.println("5 - Listar Clientes Fidelidade");
         System.out.println("6 - Deletar Produto");
+        System.out.println("7 - Atualizar Produto (Preço/Estoque)");
+        System.out.println("8 - Atualizar Nome do Cliente");
+        System.out.println("9 - Deletar Cliente");
         System.out.print("Opção: ");
         int op = lerInteiro();
 
@@ -248,6 +251,71 @@ public class Main {
                     repo.deletarProduto(codDel);
                     System.out.println("=> Produto removido do sistema com sucesso!");
                 }
+                break;
+            case 7:
+                System.out.print("Código do produto a atualizar: ");
+                String codUpd = scanner.nextLine().trim();
+                Produto pUpd = repo.buscarProduto(codUpd);
+
+                if (pUpd == null) {
+                    System.out.println("=> ERRO: Produto não encontrado no catálogo.");
+                    break;
+                }
+
+                System.out.println("=> Produto atual: " + pUpd);
+                System.out.print("Novo preço (ENTER para manter o atual): ");
+                String precoStr = scanner.nextLine().trim();
+                if (!precoStr.isEmpty()) {
+                    try {
+                        double novoPreco = Double.parseDouble(precoStr.replace(",", "."));
+                        repo.atualizarPrecoProduto(codUpd, novoPreco);
+                        System.out.println("=> Preço atualizado.");
+                    } catch (NumberFormatException e) {
+                        System.out.println("=> Valor inválido, preço não foi alterado.");
+                    }
+                }
+
+                System.out.print("Quantidade a adicionar ao estoque (0 para não alterar): ");
+                int qtdRepor = lerInteiro();
+                if (qtdRepor > 0) {
+                    repo.reporEstoqueProduto(codUpd, qtdRepor);
+                    System.out.println("=> Estoque reposto.");
+                }
+
+                System.out.println("=> Produto atualizado com sucesso!");
+                break;
+            case 8:
+                System.out.print("CPF do cliente a atualizar: ");
+                String cpfUpd = scanner.nextLine().trim();
+                Cliente cUpd = repo.buscarCliente(cpfUpd);
+
+                if (cUpd == null) {
+                    System.out.println("=> ERRO: Cliente não encontrado no cadastro.");
+                    break;
+                }
+
+                System.out.println("=> Cliente atual: " + cUpd);
+                System.out.print("Novo nome: ");
+                String novoNome = scanner.nextLine().trim();
+                if (novoNome.isEmpty()) {
+                    System.out.println("=> Nome não pode ser vazio. Nada foi alterado.");
+                } else {
+                    repo.atualizarNomeCliente(cpfUpd, novoNome);
+                    System.out.println("=> Nome atualizado com sucesso!");
+                }
+                break;
+            case 9:
+                System.out.print("CPF do cliente a remover: ");
+                String cpfDel = scanner.nextLine().trim();
+                Cliente cDel = repo.buscarCliente(cpfDel);
+
+                if (cDel == null) {
+                    System.out.println("=> ERRO: Cliente não encontrado no cadastro.");
+                    break;
+                }
+
+                repo.removerCliente(cpfDel);
+                System.out.println("=> Cliente removido do programa de fidelidade com sucesso!");
                 break;
             default:
                 System.out.println("=> Opção inválida.");
