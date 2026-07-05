@@ -1,5 +1,4 @@
 package br.edu.cafeteria.servico;
-
 import br.edu.cafeteria.modelo.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +9,25 @@ public class GerenciadorCafeteria {
 
     public void adicionarProduto(Produto p) { catalogo.add(p); }
     public void adicionarCliente(Cliente c) { clientes.add(c); }
+
+    public void atualizarPrecoProduto(String codigo, double novoPreco) {
+        Produto p = buscarProduto(codigo);
+        if (p != null) p.setPrecoBase(novoPreco);
+    }
+
+    public void reporEstoqueProduto(String codigo, int quantidade) {
+        Produto p = buscarProduto(codigo);
+        if (p != null) p.reporEstoque(quantidade);
+    }
+
+    public void atualizarNomeCliente(String cpf, String novoNome) {
+        Cliente c = buscarCliente(cpf);
+        if (c != null) c.setNome(novoNome);
+    }
+
+    public void removerCliente(String cpf) {
+        clientes.removeIf(c -> c.getCpf().equals(cpf));
+    }
 
     public Produto buscarProduto(String codigo) {
         for (Produto p : catalogo) {
@@ -43,4 +61,4 @@ public class GerenciadorCafeteria {
     public void deletarProduto(String codigo) {
         catalogo.removeIf(p -> p.getCodigo().equalsIgnoreCase(codigo));
     }
-}/*a*/
+}

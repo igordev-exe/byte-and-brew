@@ -4,7 +4,7 @@
 
 ### Sistema de Vendas e Fidelidade para uma Cafeteria Geek
 
-![Java](https://img.shields.io/badge/Java-21.0.11-orange)
+![Java](https://img.shields.io/badge/Java-21%2B-orange)
 ![Paradigma](https://img.shields.io/badge/Paradigma-POO-blue)
 ![Status](https://img.shields.io/badge/Status-Concluído-success)
 ![Licença](https://img.shields.io/badge/Licença-Acadêmica-green)
@@ -25,13 +25,14 @@ O projeto foi desenvolvido como Trabalho Prático da disciplina de **Orientaçã
 
 ## ✨ Funcionalidades
 
-- 🧾 **Gestão de Pedidos** — abertura, adição/remoção de itens e finalização com cálculo de total
-- 🍰 **Cardápio Completo** — cadastro de Comidas e Bebidas com atributos específicos e controle de estoque
-- 👤 **Programa de Fidelidade** — clientes Standard e VIP acumulam XP por compra
-- 💜 **Pagamento com XP** — clientes VIP podem quitar pedidos inteiros com pontos
+- 🧾 **Gestão de Pedidos** — abertura, adição de itens (com validação de estoque) e finalização com cálculo de total
+- 🍰 **CRUD de Produtos** — cadastro, atualização de preço/estoque e remoção de Comidas e Bebidas
+- 👤 **CRUD de Clientes** — cadastro, atualização de nome e remoção do programa de fidelidade
+- 💜 **Programa de Fidelidade** — clientes Standard e VIP acumulam XP por compra, com taxas diferentes
+- 🎮 **Pagamento com XP** — clientes VIP podem quitar pedidos inteiros com pontos
 - 🎉 **Dia de Evento Geek** — desconto promocional de 10% em todas as bebidas
 - ⚠️ **Controle de Estoque** — bloqueio automático de vendas sem estoque disponível
-- 🔍 **Pesquisa e Listagens** — busca de clientes por nome/CPF, listagem de produtos e pedidos
+- 🔍 **Pesquisa** — busca de produtos por código e de clientes por CPF
 - 🧪 **Teste de Mesa Automatizado** — demonstração completa dos conceitos OO sem input manual
 
 ---
@@ -40,13 +41,7 @@ O projeto foi desenvolvido como Trabalho Prático da disciplina de **Orientaçã
 
 ### Java
 
-O projeto foi desenvolvido e testado utilizando:
-
-```text
-JDK 21.0.11
-```
-
-> ⚠️ **Atenção:** versões anteriores do JDK 21 podem apresentar erros de compilação ou execução. Durante os testes foi constatado que o projeto não funcionou corretamente no JDK 21.0.10, sendo necessário utilizar especificamente o JDK 21.0.11.
+O projeto foi desenvolvido e testado utilizando o **JDK 21 ou superior**. Não são utilizadas APIs preview nem recursos restritos a uma versão de patch específica.
 
 Verifique sua versão instalada:
 
@@ -59,12 +54,12 @@ javac --version
 
 ## 🛠 Tecnologias Utilizadas
 
-| Tecnologia                      | Finalidade              |
-| -------------------------------- | ------------------------ |
-| Java 21.0.11                     | Linguagem principal      |
-| Swing (JOptionPane)              | Interface gráfica        |
-| Git/GitHub                       | Controle de versão       |
-| Programação Orientada a Objetos  | Estruturação do sistema  |
+| Tecnologia                          | Finalidade                          |
+| ------------------------------------ | ------------------------------------ |
+| Java 21+                             | Linguagem principal                  |
+| Console / `java.util.Scanner`        | Interface de linha de comando (CLI)  |
+| Git/GitHub                           | Controle de versão                   |
+| Programação Orientada a Objetos      | Estruturação do sistema              |
 
 ---
 
@@ -79,10 +74,19 @@ cd byte-and-brew
 
 ### 2. Compilar o projeto
 
-```bash
+**Windows (cmd):**
+```cmd
 javac src/br/edu/cafeteria/app/*.java ^
       src/br/edu/cafeteria/modelo/*.java ^
       src/br/edu/cafeteria/servico/*.java ^
+      src/br/edu/cafeteria/excecao/*.java
+```
+
+**Linux/macOS (bash):**
+```bash
+javac src/br/edu/cafeteria/app/*.java \
+      src/br/edu/cafeteria/modelo/*.java \
+      src/br/edu/cafeteria/servico/*.java \
       src/br/edu/cafeteria/excecao/*.java
 ```
 
@@ -92,7 +96,7 @@ javac src/br/edu/cafeteria/app/*.java ^
 java -cp src br.edu.cafeteria.app.Main
 ```
 
-> Todas as interações do sistema são realizadas através de janelas do JOptionPane.
+> Todas as interações do sistema são realizadas via console (linha de comando), usando `java.util.Scanner` para leitura da entrada do usuário.
 
 ---
 
@@ -104,7 +108,7 @@ java -cp src br.edu.cafeteria.app.Main
 | **Polimorfismo por Sobrescrita**   | `calcularXPGanho()` tem comportamento diferente em cada subclasse de `Cliente`   |
 | **Polimorfismo por Sobrecarga**    | `adicionarItem(Produto)` e `adicionarItem(Produto, int)` em `Pedido`             |
 | **Polimorfismo por Inclusão**      | `Pedido` armazena e processa uma lista genérica de `Produto`                     |
-| **Polimorfismo por Coerção**       | Downcasting de `Cliente` para `ClienteVIP` no fluxo de pagamento com XP          |
+| **Polimorfismo por Coerção**       | Conversão implícita de `int` para `double` em `ItemPedido.getSubtotal()` (quantidade × preço) |
 | **Classes Abstratas**              | `Produto` e `Cliente`                                                            |
 | **Interface**                      | `Promocional`, implementada por `DiaEventoGeek` para aplicar descontos           |
 | **Exceções Customizadas**          | `EstoqueInsuficienteException` e `PontosInsuficientesException` (checked)        |

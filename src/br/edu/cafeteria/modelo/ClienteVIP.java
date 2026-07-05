@@ -3,16 +3,17 @@ package br.edu.cafeteria.modelo;
 import br.edu.cafeteria.excecao.PontosInsuficientesException;
 
 public class ClienteVIP extends Cliente {
-    // [OO: Modificador de Escopo Estático] - Constante de classe para conversão
-    public static final int TAXA_CONVERSAO = 10;
-
+    private static final int TAXA_CONVERSAO = 10;
     public ClienteVIP(String cpf, String nome) {
         super(cpf, nome);
     }
 
+    public static int getTaxaConversao() {
+        return TAXA_CONVERSAO;
+    }
+
     @Override
     public void calcularXPGanho(double valor) {
-        // [OO: Polimorfismo por Coerção] - (int) força a conversão do cálculo double
         int xpGanho = (int) (valor * 2);
         this.saldoXP += xpGanho;
     }
@@ -25,4 +26,4 @@ public class ClienteVIP extends Cliente {
             throw new PontosInsuficientesException(getCpf(), getSaldoXP(), xpNecessario);
         }
     }
-}/*a*/
+}

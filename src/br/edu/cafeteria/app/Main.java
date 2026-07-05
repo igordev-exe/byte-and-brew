@@ -1,5 +1,5 @@
 package br.edu.cafeteria.app;
-/*a*/
+
 import br.edu.cafeteria.excecao.*;
 import br.edu.cafeteria.modelo.*;
 import br.edu.cafeteria.servico.*;
@@ -94,22 +94,6 @@ public class Main {
                         break;
                     }
 
-                    if (p instanceof Bebida) {
-                        System.out.println("Produto identificado como Bebida. Personalize:");
-                        Tamanho tam = null;
-                        while(tam == null) {
-                            System.out.print("Tamanho [PEQUENO, MEDIO, GRANDE]: ");
-                            try { tam = Tamanho.valueOf(scanner.nextLine().trim().toUpperCase()); }
-                            catch (IllegalArgumentException e) { System.out.println("Tamanho inválido."); }
-                        }
-                        Temperatura temp = null;
-                        while(temp == null) {
-                            System.out.print("Temperatura [QUENTE, GELADO]: ");
-                            try { temp = Temperatura.valueOf(scanner.nextLine().trim().toUpperCase()); }
-                            catch (IllegalArgumentException e) { System.out.println("Temperatura inválida."); }
-                        }
-                    }
-
                     System.out.print("Quantidade desejada: ");
                     int qtd = lerInteiro();
 
@@ -157,7 +141,7 @@ public class Main {
 
         Cliente c = pedido.getCliente();
         if (c instanceof ClienteVIP vip) {
-            double xpNecessario = total * ClienteVIP.TAXA_CONVERSAO;
+            double xpNecessario = total * ClienteVIP.getTaxaConversao();
             System.out.printf("\n[DADOS VIP] Saldo: %.2f XP | Custo da compra: %.2f XP\n", vip.getSaldoXP(), xpNecessario);
             System.out.print("Deseja pagar inteiramente utilizando o seu XP? [S/N]: ");
             if (scanner.nextLine().trim().equalsIgnoreCase("S")) {
@@ -193,6 +177,9 @@ public class Main {
         System.out.println("4 - Cadastrar novo Cliente");
         System.out.println("5 - Listar Clientes Fidelidade");
         System.out.println("6 - Deletar Produto");
+        System.out.println("7 - Atualizar Produto (Preço/Estoque)");
+        System.out.println("8 - Atualizar Nome do Cliente");
+        System.out.println("9 - Deletar Cliente");
         System.out.print("Opção: ");
         int op = lerInteiro();
 
@@ -238,19 +225,85 @@ public class Main {
                 System.out.println("=> Cliente cadastrado no programa de fidelidade!");
                 break;
             case 5: repo.listarClientes(); break;
-            default: System.out.println("=> Opção inválida.");
-            case 6: System.out.print("Código do produto: ");
+            case 6:
+                System.out.print("Código do produto: ");
                 String codDel = scanner.nextLine().trim();
                 Produto p = repo.buscarProduto(codDel);
 
                 if (p == null) {
                     System.out.println("=> ERRO: Produto não encontrado no catálogo.");
-                    break;
-                }
-                else {
+                } else {
                     repo.deletarProduto(codDel);
                     System.out.println("=> Produto removido do sistema com sucesso!");
                 }
+                break;
+            case 7:
+                System.out.print("Código do produto a atualizar: ");
+                String codUpd = scanner.nextLine().trim();
+                Produto pUpd = repo.buscarProduto(codUpd);
+
+                if (pUpd == null) {
+                    System.out.println("=> ERRO: Produto não encontrado no catálogo.");
+                    break;
+                }
+
+                System.out.println("=> Produto atual: " + pUpd);
+                System.out.print("Novo preço (ENTER para manter o atual): ");
+                String precoStr = scanner.nextLine().trim();
+                if (!precoStr.isEmpty()) {
+                    try {
+                        double novoPreco = Double.parseDouble(precoStr.replace(",", "."));
+                        repo.atualizarPrecoProduto(codUpd, novoPreco);
+                        System.out.println("=> Preço atualizado.");
+                    } catch (NumberFormatException e) {
+                        System.out.println("=> Valor inválido, preço não foi alterado.");
+                    }
+                }
+
+                System.out.print("Quantidade a adicionar ao estoque (0 para não alterar): ");
+                int qtdRepor = lerInteiro();
+                if (qtdRepor > 0) {
+                    repo.reporEstoqueProduto(codUpd, qtdRepor);
+                    System.out.println("=> Estoque reposto.");
+                }
+
+                System.out.println("=> Produto atualizado com sucesso!");
+                break;
+            case 8:
+                System.out.print("CPF do cliente a atualizar: ");
+                String cpfUpd = scanner.nextLine().trim();
+                Cliente cUpd = repo.buscarCliente(cpfUpd);
+
+                if (cUpd == null) {
+                    System.out.println("=> ERRO: Cliente não encontrado no cadastro.");
+                    break;
+                }
+
+                System.out.println("=> Cliente atual: " + cUpd);
+                System.out.print("Novo nome: ");
+                String novoNome = scanner.nextLine().trim();
+                if (novoNome.isEmpty()) {
+                    System.out.println("=> Nome não pode ser vazio. Nada foi alterado.");
+                } else {
+                    repo.atualizarNomeCliente(cpfUpd, novoNome);
+                    System.out.println("=> Nome atualizado com sucesso!");
+                }
+                break;
+            case 9:
+                System.out.print("CPF do cliente a remover: ");
+                String cpfDel = scanner.nextLine().trim();
+                Cliente cDel = repo.buscarCliente(cpfDel);
+
+                if (cDel == null) {
+                    System.out.println("=> ERRO: Cliente não encontrado no cadastro.");
+                    break;
+                }
+
+                repo.removerCliente(cpfDel);
+                System.out.println("=> Cliente removido do programa de fidelidade com sucesso!");
+                break;
+            default:
+                System.out.println("=> Opção inválida.");
         }
         System.out.println("\nPressione ENTER para voltar ao Menu Principal...");
         scanner.nextLine();
