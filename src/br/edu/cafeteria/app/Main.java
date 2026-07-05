@@ -156,7 +156,7 @@ public class Main {
 
         Cliente c = pedido.getCliente();
         if (c instanceof ClienteVIP vip) {
-            double xpNecessario = total * ClienteVIP.TAXA_CONVERSAO;
+            double xpNecessario = total * ClienteVIP.getTaxaConversao();
             System.out.printf("\n[DADOS VIP] Saldo: %.2f XP | Custo da compra: %.2f XP\n", vip.getSaldoXP(), xpNecessario);
             System.out.print("Deseja pagar inteiramente utilizando o seu XP? [S/N]: ");
             if (scanner.nextLine().trim().equalsIgnoreCase("S")) {
