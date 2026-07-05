@@ -1,49 +1,205 @@
-# ☕ Byte & Brew: Sistema de Vendas e Fidelidade
+<div align="center">
 
-> **Trabalho Prático - Orientação por Objetos (OO)** > **Universidade de Brasília (UnB) - Faculdade do Gama (FGA)** > **Professor:** André Luiz Peron Martins Lanna  
+# ☕ Byte & Brew
 
-## 📜 Sobre o Projeto
+### Sistema de Vendas e Fidelidade para uma Cafeteria Geek
 
-O **Byte & Brew** é um sistema de gerenciamento de vendas e programa de fidelidade construído inteiramente em **Java**. O projeto foi desenvolvido para atender às regras de negócio de uma cafeteria temática focada no público geek, entusiastas de tecnologia e jogadores de RPG.
+![Java](https://img.shields.io/badge/Java-21%2B-orange)
+![Paradigma](https://img.shields.io/badge/Paradigma-POO-blue)
+![Status](https://img.shields.io/badge/Status-Concluído-success)
+![Licença](https://img.shields.io/badge/Licença-Acadêmica-green)
 
-O objetivo principal do repositório é demonstrar a aplicação prática e rigorosa dos pilares da **Orientação a Objetos**, englobando desde a abstração das regras de negócio até o encapsulamento estrito e a manipulação de exceções customizadas.
+> *"Onde cada gole vira experiência e cada compra sobe de nível."*
 
-## ⚙️ Funcionalidades Principais
+</div>
 
-O sistema gerencia o fluxo completo de atendimento da cafeteria através de três módulos principais:
+---
 
-* **Gestão de Cardápio:** Cadastro e controle de estoque de `Produtos`, divididos em `Comidas` (com restrições alimentares e tempo de preparo) e `Bebidas` (com variação de tamanho e dosagem de cafeína).
-* **Programa de Fidelidade (XP):** Sistema de acúmulo de pontos baseado no gasto do cliente. 
-    * **Cliente Standard (Aventureiro Iniciante):** Acumula 1 XP por Real gasto.
-    * **Cliente VIP (Mestre da Guilda):** Acumula 2 XP por Real gasto e possui a exclusividade de pagar seus pedidos resgatando pontos.
-* **Fluxo de Vendas (Pedidos):** Abertura de comandas, adição de múltiplos itens com controle de quantidade, cálculo automático de totais, aplicação de descontos em dias de eventos geeks e baixa automática de estoque.
+## 🗺️ Sobre o Projeto
 
-## 🧩 Conceitos de OO Aplicados
+A **Byte & Brew** é uma cafeteria temática voltada para o público geek, entusiastas de tecnologia, cultura pop, jogos de tabuleiro e literatura de fantasia. Este sistema gerencia seu cardápio, clientes e vendas, com um programa de fidelidade baseado em **pontos de XP**.
 
-Para garantir a qualidade arquitetural e a nota máxima nos critérios de avaliação, a implementação destaca os seguintes conceitos:
+O projeto foi desenvolvido como Trabalho Prático da disciplina de **Orientação a Objetos** da **Universidade de Brasília (UnB/FGA)**, com o objetivo de aplicar na prática conceitos fundamentais de **Programação Orientada a Objetos (POO)**.
 
-- [x] **Encapsulamento Estrito:** Proteção dos atributos utilizando modificadores `private` e `protected`, com acesso exclusivo via métodos de negócio.
-- [x] **Herança Simples:** Hierarquia clara entre `Produto` (superclasse abstrata), `Comida` e `Bebida`; e entre `Cliente`, `ClienteStandard` e `ClienteVIP`.
-- [x] **Polimorfismo:**
-  - **Por Inclusão:** A classe `Pedido` processa itens genéricos tratados como `Produto`.
-  - **Por Sobrescrita:** Lógica de pontuação de XP customizada nas subclasses de Cliente.
-  - **Por Sobrecarga:** Diferentes assinaturas no método `adicionarItem()` dentro da classe Pedido.
-  - **Por Coerção:** Conversão consciente de tipos durante os cálculos financeiros e de XP.
-- [x] **Tratamento de Exceções Customizadas:** Lançamento de `EstoqueInsuficienteException` e `PontosInsuficientesException` para garantir a consistência das regras de negócio.
-- [x] **Interfaces:** Uso da interface `Promocional` para injeção de regras de desconto sazonais.
+---
 
-## 📂 Estrutura de Pacotes
+## ✨ Funcionalidades
 
-A arquitetura do código foi desenhada de forma modular:
+- 🧾 **Gestão de Pedidos** — abertura, adição de itens (com validação de estoque) e finalização com cálculo de total
+- 🍰 **CRUD de Produtos** — cadastro, atualização de preço/estoque e remoção de Comidas e Bebidas
+- 👤 **CRUD de Clientes** — cadastro, atualização de nome e remoção do programa de fidelidade
+- 💜 **Programa de Fidelidade** — clientes Standard e VIP acumulam XP por compra, com taxas diferentes
+- 🎮 **Pagamento com XP** — clientes VIP podem quitar pedidos inteiros com pontos
+- 🎉 **Dia de Evento Geek** — desconto promocional de 10% em todas as bebidas
+- ⚠️ **Controle de Estoque** — bloqueio automático de vendas sem estoque disponível
+- 🔍 **Pesquisa** — busca de produtos por código e de clientes por CPF
+- 🧪 **Teste de Mesa Automatizado** — demonstração completa dos conceitos OO sem input manual
 
-* `br.edu.cafeteria.modelo`: Contém as entidades principais (Produto, Comida, Bebida, Cliente, Pedido).
-* `br.edu.cafeteria.excecao`: Classes de exceções personalizadas de negócio.
-* `br.edu.cafeteria.servico`: Interfaces e motores de validação/desconto.
-* `br.edu.cafeteria.app`: Classe principal executável contendo o método `main`.
+---
+
+## ⚙️ Requisitos
+
+### Java
+
+O projeto foi desenvolvido e testado utilizando o **JDK 21 ou superior**. Não são utilizadas APIs preview nem recursos restritos a uma versão de patch específica.
+
+Verifique sua versão instalada:
+
+```bash
+java --version
+javac --version
+```
+
+---
+
+## 🛠 Tecnologias Utilizadas
+
+| Tecnologia                          | Finalidade                          |
+| ------------------------------------ | ------------------------------------ |
+| Java 21+                             | Linguagem principal                  |
+| Console / `java.util.Scanner`        | Interface de linha de comando (CLI)  |
+| Git/GitHub                           | Controle de versão                   |
+| Programação Orientada a Objetos      | Estruturação do sistema              |
+
+---
 
 ## 🚀 Como Executar
 
-1. Certifique-se de ter o **Java JDK** instalado (versão recomendada: 17 ou superior).
-2. Clone este repositório:
-   ```bash
-   git clone [https://github.com/seu-usuario/byte-and-brew.git](https://github.com/igordev-exe/byte-and-brew.git)
+### 1. Clonar o repositório
+
+```bash
+git clone https://github.com/SEU_USUARIO/byte-and-brew.git
+cd byte-and-brew
+```
+
+### 2. Compilar o projeto
+
+**Windows (cmd):**
+```cmd
+javac src/br/edu/cafeteria/app/*.java ^
+      src/br/edu/cafeteria/modelo/*.java ^
+      src/br/edu/cafeteria/servico/*.java ^
+      src/br/edu/cafeteria/excecao/*.java
+```
+
+**Linux/macOS (bash):**
+```bash
+javac src/br/edu/cafeteria/app/*.java \
+      src/br/edu/cafeteria/modelo/*.java \
+      src/br/edu/cafeteria/servico/*.java \
+      src/br/edu/cafeteria/excecao/*.java
+```
+
+### 3. Executar
+
+```bash
+java -cp src br.edu.cafeteria.app.Main
+```
+
+> Todas as interações do sistema são realizadas via console (linha de comando), usando `java.util.Scanner` para leitura da entrada do usuário.
+
+---
+
+## 🏛️ Arquitetura e Conceitos OO Aplicados
+
+| Conceito                          | Onde é aplicado                                                                 |
+| ---------------------------------- | -------------------------------------------------------------------------------- |
+| **Herança Simples**                | `Comida` e `Bebida` estendem `Produto`; `ClienteStandard` e `ClienteVIP` estendem `Cliente` |
+| **Polimorfismo por Sobrescrita**   | `calcularXPGanho()` tem comportamento diferente em cada subclasse de `Cliente`   |
+| **Polimorfismo por Sobrecarga**    | `adicionarItem(Produto)` e `adicionarItem(Produto, int)` em `Pedido`             |
+| **Polimorfismo por Inclusão**      | `Pedido` armazena e processa uma lista genérica de `Produto`                     |
+| **Polimorfismo por Coerção**       | Conversão implícita de `int` para `double` em `ItemPedido.getSubtotal()` (quantidade × preço) |
+| **Classes Abstratas**              | `Produto` e `Cliente`                                                            |
+| **Interface**                      | `Promocional`, implementada por `DiaEventoGeek` para aplicar descontos           |
+| **Exceções Customizadas**          | `EstoqueInsuficienteException` e `PontosInsuficientesException` (checked)        |
+| **Encapsulamento**                 | Todos os atributos são `private`/`protected`, expostos apenas via getters/setters |
+| **Atributo Estático**              | Contador sequencial automático de pedidos e constante `TAXA_CONVERSAO`           |
+
+---
+
+## 📦 Estrutura de Pacotes
+
+```text
+src/
+└── br/edu/cafeteria/
+    ├── app/
+    │   └── Main.java                        # Ponto de entrada e menus
+    ├── excecao/
+    │   ├── EstoqueInsuficienteException.java
+    │   └── PontosInsuficientesException.java
+    ├── modelo/
+    │   ├── Produto.java
+    │   ├── Comida.java
+    │   ├── Bebida.java
+    │   ├── Cliente.java
+    │   ├── ClienteStandard.java
+    │   ├── ClienteVIP.java
+    │   ├── Pedido.java
+    │   ├── ItemPedido.java
+    │   ├── Atendente.java
+    │   ├── Tamanho.java          # enum
+    │   └── Temperatura.java      # enum
+    └── servico/
+        ├── Promocional.java      # interface
+        ├── DiaEventoGeek.java
+        └── GerenciadorCafeteria.java
+```
+
+---
+
+## 🃏 Cardápio Inicial (dados pré-carregados)
+
+| Código | Nome                  | Tipo               | Preço    | Estoque |
+| ------ | ---------------------- | ------------------- | -------- | ------- |
+| C01    | Lembas Bread           | Comida (vegano)      | R$ 15,00 | 10      |
+| B01    | Poção de Mana          | Bebida (gelada, M)   | R$ 12,00 | 20      |
+| B02    | Café do Programador    | Bebida (quente, G)   | R$ 8,00  | 50      |
+
+### Clientes pré-cadastrados
+
+| CPF | Nome         | Categoria    | XP Inicial |
+| --- | ------------ | ------------ | ---------- |
+| 111 | Ada Lovelace | VIP 👑       | 0 XP       |
+| 222 | Alan Turing  | Standard ⚔️  | 0 XP       |
+
+---
+
+## 📜 Regras de Negócio
+
+- **Cliente Standard** → ganha `1 XP` por R$ 1,00 gasto
+- **Cliente VIP** → ganha `2 XP` por R$ 1,00 gasto + pode pagar pedidos com XP
+- **Taxa de conversão XP** → `10 XP = R$ 1,00` (exclusivo VIP)
+- **Dia de Evento Geek** → `10% de desconto` sobre o total de bebidas do pedido
+- **Estoque zerado** → venda bloqueada com `EstoqueInsuficienteException`
+- **XP insuficiente** → pagamento com pontos bloqueado com `PontosInsuficientesException`
+
+---
+
+## 🎓 Trabalho Acadêmico
+
+**Universidade de Brasília (UnB)**
+**Faculdade do Gama (FGA)**
+**Disciplina:** Orientação a Objetos
+**Professor:** André Luiz Peron Martins Lanna
+
+---
+
+## 👨‍💻 Autores
+
+- [André Alves - 252003794](https://github.com/a-alvezx)
+
+    <img src="https://avatars.githubusercontent.com/u/204260728?v=4" width="150px" style="border-radius: 100px;">
+
+- [Igor Alves - 252026242](https://github.com/igordev-exe)
+
+    <img src="https://avatars.githubusercontent.com/u/224191295?v=4" width="150px" style="border-radius: 100px;">
+
+- [Felippe Ong Su - 242028664](https://github.com/felpp-su)
+
+    <img src="https://avatars.githubusercontent.com/u/197075315?v=4" width="150px" style="border-radius: 100px;">
+
+---
+
+## 📄 Licença
+
+Projeto desenvolvido exclusivamente para fins acadêmicos na disciplina de Orientação a Objetos da Universidade de Brasília.
