@@ -1,4 +1,5 @@
 package br.edu.cafeteria.app;
+
 import br.edu.cafeteria.excecao.*;
 import br.edu.cafeteria.modelo.*;
 import br.edu.cafeteria.servico.*;
@@ -91,22 +92,6 @@ public class Main {
                     if (p == null) {
                         System.out.println("=> ERRO: Produto não encontrado no catálogo.");
                         break;
-                    }
-
-                    if (p instanceof Bebida) {
-                        System.out.println("Produto identificado como Bebida. Personalize:");
-                        Tamanho tam = null;
-                        while(tam == null) {
-                            System.out.print("Tamanho [PEQUENO, MEDIO, GRANDE]: ");
-                            try { tam = Tamanho.valueOf(scanner.nextLine().trim().toUpperCase()); }
-                            catch (IllegalArgumentException e) { System.out.println("Tamanho inválido."); }
-                        }
-                        Temperatura temp = null;
-                        while(temp == null) {
-                            System.out.print("Temperatura [QUENTE, GELADO]: ");
-                            try { temp = Temperatura.valueOf(scanner.nextLine().trim().toUpperCase()); }
-                            catch (IllegalArgumentException e) { System.out.println("Temperatura inválida."); }
-                        }
                     }
 
                     System.out.print("Quantidade desejada: ");
