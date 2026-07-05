@@ -111,7 +111,7 @@ java -cp src br.edu.cafeteria.app.Main
 | **Polimorfismo por Coerção**       | Conversão implícita de `int` para `double` em `ItemPedido.getSubtotal()` (quantidade × preço) |
 | **Classes Abstratas**              | `Produto` e `Cliente`                                                            |
 | **Interface**                      | `Promocional`, implementada por `DiaEventoGeek` para aplicar descontos           |
-| **Exceções Customizadas**          | `EstoqueInsuficienteException` e `PontosInsuficientesException` (checked)        |
+| **Exceções Customizadas**          | `EstoqueInsuficienteException`, `PontosInsuficientesException` e `QuantidadeInvalidaException` (checked) |
 | **Encapsulamento**                 | Todos os atributos são `private`/`protected`, expostos apenas via getters/setters |
 | **Atributo Estático**              | Contador sequencial automático de pedidos e constante `TAXA_CONVERSAO`           |
 
@@ -126,7 +126,8 @@ src/
     │   └── Main.java                        # Ponto de entrada e menus
     ├── excecao/
     │   ├── EstoqueInsuficienteException.java
-    │   └── PontosInsuficientesException.java
+    │   ├── PontosInsuficientesException.java
+    │   └── QuantidadeInvalidaException.java
     ├── modelo/
     │   ├── Produto.java
     │   ├── Comida.java
@@ -171,7 +172,10 @@ src/
 - **Taxa de conversão XP** → `10 XP = R$ 1,00` (exclusivo VIP)
 - **Dia de Evento Geek** → `10% de desconto` sobre o total de bebidas do pedido
 - **Estoque zerado** → venda bloqueada com `EstoqueInsuficienteException`
+- **Quantidade inválida** → adicionar 0 ou quantidade negativa ao pedido é bloqueado com `QuantidadeInvalidaException`
 - **XP insuficiente** → pagamento com pontos bloqueado com `PontosInsuficientesException`
+- **CPF** → validado estruturalmente (11 dígitos numéricos) e não pode se repetir entre clientes cadastrados
+- **Código de produto** → não pode se repetir entre produtos cadastrados
 
 ---
 
