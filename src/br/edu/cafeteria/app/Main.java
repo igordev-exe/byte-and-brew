@@ -100,7 +100,7 @@ public class Main {
                     try {
                         pedido.adicionarItem(p, qtd);
                         System.out.println("=> Item(ns) adicionado(s) com sucesso!");
-                    } catch (EstoqueInsuficienteException e) {
+                    } catch (EstoqueInsuficienteException | QuantidadeInvalidaException e) {
                         System.err.println("=> ERRO: " + e.getMessage());
                     }
                     break;
@@ -350,7 +350,7 @@ public class Main {
             pedidoAlan.adicionarItem(lembas);
             pedidoAlan.adicionarItem(pocaoMana, 2); 
             System.out.println("[OK] Itens adicionados com sucesso ao pedido do Alan.");
-        } catch (EstoqueInsuficienteException e) {
+        } catch (EstoqueInsuficienteException | QuantidadeInvalidaException e) {
             System.out.println("[ERRO] Falha inesperada: " + e.getMessage());
         }
 
@@ -358,7 +358,7 @@ public class Main {
         try {
             System.out.println("Tentando comprar 15 Lembas Bread (Estoque disponível: " + lembas.getQuantidadeEstoque() + ")...");
             pedidoAlan.adicionarItem(lembas, 15);
-        } catch (EstoqueInsuficienteException e) {
+        } catch (EstoqueInsuficienteException | QuantidadeInvalidaException e) {
             System.out.println("[OK] Exceção capturada com sucesso: " + e.getMessage());
         }
 
@@ -382,7 +382,7 @@ public class Main {
             ada.pagarComXP(totalAda);
         } catch (PontosInsuficientesException e) {
             System.out.println("[OK] Exceção capturada: " + e.getMessage());
-        } catch (EstoqueInsuficienteException e) {
+        } catch (EstoqueInsuficienteException | QuantidadeInvalidaException e) {
             System.out.println("[ERRO] Falha de estoque inesperada.");
         }
 
@@ -398,7 +398,7 @@ public class Main {
             pedidoVip.efetivarSaidaEstoque();
             System.out.printf("[OK] Compra de R$ %.2f paga inteiramente com XP! Saldo restante: %.0f XP%n",
                     totalVip, ada.getSaldoXP());
-        } catch (PontosInsuficientesException | EstoqueInsuficienteException e) {
+        } catch (PontosInsuficientesException | EstoqueInsuficienteException | QuantidadeInvalidaException e) {
             System.out.println("[ERRO] " + e.getMessage());
         }
 
