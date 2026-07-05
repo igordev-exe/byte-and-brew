@@ -8,8 +8,7 @@ public class ClienteStandard extends Cliente {
 
     @Override
     public void calcularXPGanho(double valor) {
-        // [OO: Polimorfismo por Coerção] - Convertendo double (valor) para int implicitamente através da regra de negócio (1 por real inteiro)
         int xpGanho = (int) valor;
         this.saldoXP += xpGanho;
     }
-}/*a*/
+}
