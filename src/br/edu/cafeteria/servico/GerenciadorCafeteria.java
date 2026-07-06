@@ -44,17 +44,17 @@ public class GerenciadorCafeteria {
     }
 
     public void listarProdutos() {
-        System.out.println("\n--- Cardápio / Estoque ---");
+        System.out.println("\n📋 ─── Cardápio / Estoque ───");
         for (Produto p : catalogo) {
-            System.out.println(p.toString());
+            System.out.println("  " + p.toString());
         }
     }
 
     public void listarClientes() {
-        System.out.println("\n--- Clientes Cadastrados ---");
+        System.out.println("\n🏆 ─── Clientes Cadastrados ───");
         for (Cliente c : clientes) {
-            String tipo = (c instanceof ClienteVIP) ? "[VIP]" : "[STD]";
-            System.out.println(tipo + " " + c.toString());
+            String tipo = (c instanceof ClienteVIP) ? "👑 [VIP]" : "⭐ [STD]";
+            System.out.println("  " + tipo + " " + c.toString());
         }
     }
 

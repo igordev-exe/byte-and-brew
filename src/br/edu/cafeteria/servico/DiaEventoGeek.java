@@ -7,4 +7,4 @@ public class DiaEventoGeek implements Promocional {
         // Aplica o desconto de 10% exigido no enunciado para bebidas
         return valorCalculado * 0.10;
     }
-}/*a*/
+}

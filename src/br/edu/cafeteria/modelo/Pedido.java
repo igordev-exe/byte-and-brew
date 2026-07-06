@@ -1,6 +1,7 @@
 package br.edu.cafeteria.modelo;
 
 import br.edu.cafeteria.excecao.EstoqueInsuficienteException;
+import br.edu.cafeteria.excecao.QuantidadeInvalidaException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,12 +24,15 @@ public class Pedido {
     }
 
     // [OO: Polimorfismo por Sobrecarga] - Assinatura 1
-    public void adicionarItem(Produto p) throws EstoqueInsuficienteException {
+    public void adicionarItem(Produto p) throws EstoqueInsuficienteException, QuantidadeInvalidaException {
         adicionarItem(p, 1);
     }
 
     // [OO: Polimorfismo por Sobrecarga] - Assinatura 2
-    public void adicionarItem(Produto p, int quantidade) throws EstoqueInsuficienteException {
+    public void adicionarItem(Produto p, int quantidade) throws EstoqueInsuficienteException, QuantidadeInvalidaException {
+        if (quantidade <= 0) {
+            throw new QuantidadeInvalidaException(quantidade);
+        }
         if (quantidade > p.getQuantidadeEstoque()) {
             throw new EstoqueInsuficienteException(
                     p.getCodigo(), quantidade, p.getQuantidadeEstoque());
@@ -65,4 +69,4 @@ public class Pedido {
     public Cliente getCliente() { return cliente; }
     public Atendente getAtendente() { return atendente; }
     public int getId() { return id; }
-}/*a*/
+}

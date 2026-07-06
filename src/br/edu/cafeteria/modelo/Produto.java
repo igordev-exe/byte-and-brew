@@ -33,4 +33,4 @@ public abstract class Produto {
     public String toString() {
         return String.format("[%s] %s - R$ %.2f (Estoque: %d)", codigo, nome, precoBase, quantidadeEstoque);
     }
-}/*a*/
+}
