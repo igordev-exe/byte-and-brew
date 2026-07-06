@@ -195,8 +195,8 @@ public class Main {
                     break;
                 }
                 System.out.print("Nome da Comida: "); String nomeC = scanner.nextLine().trim();
-                System.out.print("Preço Base (ex: 15.50): "); double preC = lerDouble();
-                System.out.print("Estoque Inicial: "); int estC = lerInteiro();
+                System.out.print("Preço Base (ex: 15.50): "); double preC = lerPrecoValido();
+                System.out.print("Estoque Inicial: "); int estC = lerEstoqueValido();
                 System.out.print("Tempo de Preparo (min): "); int tmpC = lerInteiro();
                 System.out.print("É vegano/sem glúten? [true/false]: "); boolean veg = Boolean.parseBoolean(scanner.nextLine().trim());
                 repo.adicionarProduto(new Comida(codC, nomeC, preC, estC, tmpC, veg));
@@ -209,8 +209,8 @@ public class Main {
                     break;
                 }
                 System.out.print("Nome da Bebida: "); String nomeB = scanner.nextLine().trim();
-                System.out.print("Preço Base (ex: 12.00): "); double preB = lerDouble();
-                System.out.print("Estoque Inicial: "); int estB = lerInteiro();
+                System.out.print("Preço Base (ex: 12.00): "); double preB = lerPrecoValido();
+                System.out.print("Estoque Inicial: "); int estB = lerEstoqueValido();
                 Tamanho tam = null;
                 while(tam == null) {
                     System.out.print("Tamanho [PEQUENO, MEDIO, GRANDE]: ");
@@ -344,6 +344,24 @@ public class Main {
         while (true) {
             try { return Double.parseDouble(scanner.nextLine().replace(",", ".").trim()); }
             catch (NumberFormatException e) { System.out.print("=> [ERRO] Digite um valor numérico (ex: 15.50): "); }
+        }
+    }
+
+    // Garante preço estritamente positivo (mesma regra usada na Atualização de Produto)
+    private static double lerPrecoValido() {
+        while (true) {
+            double valor = lerDouble();
+            if (valor > 0) return valor;
+            System.out.print("=> ERRO: O preço deve ser maior que zero. Digite novamente: ");
+        }
+    }
+
+    // Garante estoque não-negativo
+    private static int lerEstoqueValido() {
+        while (true) {
+            int valor = lerInteiro();
+            if (valor >= 0) return valor;
+            System.out.print("=> ERRO: O estoque não pode ser negativo. Digite novamente: ");
         }
     }
 
