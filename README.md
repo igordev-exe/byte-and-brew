@@ -68,7 +68,7 @@ javac --version
 ### 1. Clonar o repositório
 
 ```bash
-git clone https://github.com/SEU_USUARIO/byte-and-brew.git
+git clone https://github.com/igordev-exe/byte-and-brew.git
 cd byte-and-brew
 ```
 
@@ -107,7 +107,7 @@ java -cp src br.edu.cafeteria.app.Main
 | **Herança Simples**                | `Comida` e `Bebida` estendem `Produto`; `ClienteStandard` e `ClienteVIP` estendem `Cliente` |
 | **Polimorfismo por Sobrescrita**   | `calcularXPGanho()` tem comportamento diferente em cada subclasse de `Cliente`   |
 | **Polimorfismo por Sobrecarga**    | `adicionarItem(Produto)` e `adicionarItem(Produto, int)` em `Pedido`             |
-| **Polimorfismo por Inclusão**      | `Pedido` armazena e processa uma lista genérica de `ItemPedido`                     |
+| **Polimorfismo por Inclusão**      | A classe `ItemPedido` e os métodos de `Pedido` processam instâncias do tipo abstrato `Produto` (que dinamicamente podem ser `Comida` ou `Bebida`).                     |
 | **Polimorfismo por Coerção**       | Conversão implícita de `int` para `double` em `ItemPedido.getSubtotal()` (quantidade × preço) |
 | **Classes Abstratas**              | `Produto` e `Cliente`                                                            |
 | **Interface**                      | `Promocional`, implementada por `DiaEventoGeek` para aplicar descontos           |
